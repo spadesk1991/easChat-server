@@ -1,7 +1,8 @@
 package modules
 
 import (
-	"github.com/spadesk1991/easChat-serve/lib/mongo"
+	"github.com/spadesk1991/easChat-server/lib/mongo"
+	"github.com/spadesk1991/easChat-server/lib/utils"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -15,6 +16,10 @@ type User struct {
 }
 
 func (user *User) Create() error {
-	mongo.GetSession()
-	return nil
+	s, db := mongo.GetSession()
+	defer s.Close()
+	c := db.C("user")
+	user.ID = bson.NewObjectId()
+	user.CreateAt = utils.GetCurrTime()
+	return c.Insert(user)
 }

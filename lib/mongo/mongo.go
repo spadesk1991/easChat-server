@@ -20,6 +20,8 @@ func init() {
 }
 
 // GetSession 获得ｓｅｓｓｉｏｎ
-func GetSession() *mgo.Session {
-	return session.Copy()
+func GetSession() (*mgo.Session, *mgo.Database) {
+	s := session.Copy()
+	db := s.DB("esaChat")
+	return s, db
 }
