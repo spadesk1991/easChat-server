@@ -21,5 +21,24 @@ func (user *User) Create() error {
 	c := db.C("user")
 	user.ID = bson.NewObjectId()
 	user.CreateAt = utils.GetCurrTime()
+	user.UpdateAt = utils.GetCurrTime()
 	return c.Insert(user)
+}
+
+func GetUser(query bson.M) (User, error) {
+	s, db := mongo.GetSession()
+	defer s.Close()
+	c := db.C("user")
+	var user User
+	err := c.Find(query).One(&user)
+	return user, err
+}
+
+func GetUsers() ([]User, error) {
+	s, db := mongo.GetSession()
+	defer s.Close()
+	c := db.C("user")
+	users := make([]User, 0)
+	err := c.Find(bson.M{}).All(&users)
+	return users, err
 }
