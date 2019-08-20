@@ -29,7 +29,15 @@ func Register(ctx *gin.Context) {
 
 func GetUser(ctx *gin.Context) {
 	userName, _ := ctx.GetQuery("username")
-	user, err := modules.GetUser(bson.M{"user_name": userName})
+	id, _ := ctx.GetQuery("id")
+	query := bson.M{}
+	if userName != "" {
+		query["user_name"] = userName
+	}
+	if id != "" {
+		query["_id"] = bson.ObjectIdHex(id)
+	}
+	user, err := modules.GetUser(query)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
 		return
