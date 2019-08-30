@@ -25,11 +25,6 @@ func main() {
 	r.GET("/user", controllers.GetUser)
 	r.GET("/users", controllers.GetUsers)
 	r.Run(":12345")
-	type Message struct {
-		Sender    bson.ObjectId `json:"sender"`
-		Recipient bson.ObjectId `json:"recipient"`
-		Content   string        `json:"content"`
-	}
 }
 
 type Message struct {
