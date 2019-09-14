@@ -4,12 +4,11 @@ import (
 	"log"
 	"net/http"
 
-	"gopkg.in/mgo.v2/bson"
-
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	"github.com/spadesk1991/easChat-server/controllers"
 	"github.com/spadesk1991/easChat-server/middleware"
+	"gopkg.in/mgo.v2/bson"
 )
 
 var (
