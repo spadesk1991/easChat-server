@@ -1,0 +1,234 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "{{.Description}}",
+        "title": "{{.Title}}",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "API Support",
+            "url": "http://localhost:8080",
+            "email": "spadesk1991@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "{{.Version}}"
+    },
+    "host": "{{.Host}}",
+    "basePath": "{{.BasePath}}",
+    "paths": {
+        "/user/person": {
+            "get": {
+                "description": "查询数据库用户信息",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "查询用户信息列表",
+                "responses": {
+                    "200": {
+                        "description": "返回用户信息",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/modules.User"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "retcode：10002 参数错误； retcode：10003 校验错误",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "401": {
+                        "description": "retcode：10001 登录失败",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "retcode：20001 服务错误；retcode：20002 接口错误；retcode：20003 无数据错误；retcode：20004 数据库异常；retcode：20005 缓存异常",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/person/login": {
+            "post": {
+                "description": "登录",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "登录",
+                "parameters": [
+                    {
+                        "description": "body参数",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/controllers.LoginParams"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok\" \"返回用户信息",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "retcode：10002 参数错误； retcode：10003 校验错误",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "401": {
+                        "description": "retcode：10001 登录失败",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "retcode：20001 服务错误；retcode：20002 接口错误；retcode：20003 无数据错误；retcode：20004 数据库异常；retcode：20005 缓存异常",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/person/register": {
+            "post": {
+                "description": "注册用户",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "注册用户",
+                "parameters": [
+                    {
+                        "description": "body参数",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/controllers.LoginParams"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok\" \"返回用户信息",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "retcode：10002 参数错误； retcode：10003 校验错误",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "401": {
+                        "description": "retcode：10001 登录失败",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "retcode：20001 服务错误；retcode：20002 接口错误；retcode：20003 无数据错误；retcode：20004 数据库异常；retcode：20005 缓存异常",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/person/{id}": {
+            "get": {
+                "description": "查询数据库用户信息",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "查询用户信息",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "mongodb文档id",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回用户信息",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/modules.User"
+                        }
+                    },
+                    "400": {
+                        "description": "retcode：10002 参数错误； retcode：10003 校验错误"
+                    },
+                    "401": {
+                        "description": "retcode：10001 登录失败"
+                    },
+                    "500": {
+                        "description": "retcode：20001 服务错误；retcode：20002 接口错误；retcode：20003 无数据错误；retcode：20004 数据库异常；retcode：20005 缓存异常"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "controllers.LoginParams": {
+            "type": "object",
+            "required": [
+                "password",
+                "user_name"
+            ],
+            "properties": {
+                "password": {
+                    "type": "string",
+                    "example": "123456"
+                },
+                "user_name": {
+                    "type": "string",
+                    "example": "张三"
+                }
+            }
+        },
+        "modules.User": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "example": "1111"
+                },
+                "create_at": {
+                    "type": "string",
+                    "example": "创建时间"
+                },
+                "password": {
+                    "type": "string",
+                    "example": "密码"
+                },
+                "update_at": {
+                    "type": "string",
+                    "example": "更新时间"
+                },
+                "user_name": {
+                    "type": "string",
+                    "example": "张三"
+                }
+            }
+        }
+    }
+}

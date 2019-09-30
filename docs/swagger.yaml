@@ -1,0 +1,162 @@
+basePath: '{{.BasePath}}'
+definitions:
+  controllers.LoginParams:
+    properties:
+      password:
+        example: "123456"
+        type: string
+      user_name:
+        example: 张三
+        type: string
+    required:
+    - password
+    - user_name
+    type: object
+  modules.User:
+    properties:
+      _id:
+        example: "1111"
+        type: string
+      create_at:
+        example: 创建时间
+        type: string
+      password:
+        example: 密码
+        type: string
+      update_at:
+        example: 更新时间
+        type: string
+      user_name:
+        example: 张三
+        type: string
+    type: object
+host: '{{.Host}}'
+info:
+  contact:
+    email: spadesk1991@gmail.com
+    name: API Support
+    url: http://localhost:8080
+  description: '{{.Description}}'
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: '{{.Title}}'
+  version: '{{.Version}}'
+paths:
+  /user/person:
+    get:
+      description: 查询数据库用户信息
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回用户信息
+          schema:
+            items:
+              $ref: '#/definitions/modules.User'
+            type: array
+        "400":
+          description: retcode：10002 参数错误； retcode：10003 校验错误
+          schema:
+            type: string
+        "401":
+          description: retcode：10001 登录失败
+          schema:
+            type: string
+        "500":
+          description: retcode：20001 服务错误；retcode：20002 接口错误；retcode：20003 无数据错误；retcode：20004
+            数据库异常；retcode：20005 缓存异常
+          schema:
+            type: string
+      summary: 查询用户信息列表
+  /user/person/{id}:
+    get:
+      description: 查询数据库用户信息
+      parameters:
+      - description: mongodb文档id
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回用户信息
+          schema:
+            $ref: '#/definitions/modules.User'
+            type: object
+        "400":
+          description: retcode：10002 参数错误； retcode：10003 校验错误
+        "401":
+          description: retcode：10001 登录失败
+        "500":
+          description: retcode：20001 服务错误；retcode：20002 接口错误；retcode：20003 无数据错误；retcode：20004
+            数据库异常；retcode：20005 缓存异常
+      summary: 查询用户信息
+  /user/person/login:
+    post:
+      description: 登录
+      parameters:
+      - description: body参数
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.LoginParams'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok" "返回用户信息
+          schema:
+            type: string
+        "400":
+          description: retcode：10002 参数错误； retcode：10003 校验错误
+          schema:
+            type: string
+        "401":
+          description: retcode：10001 登录失败
+          schema:
+            type: string
+        "500":
+          description: retcode：20001 服务错误；retcode：20002 接口错误；retcode：20003 无数据错误；retcode：20004
+            数据库异常；retcode：20005 缓存异常
+          schema:
+            type: string
+      summary: 登录
+  /user/person/register:
+    post:
+      description: 注册用户
+      parameters:
+      - description: body参数
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.LoginParams'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok" "返回用户信息
+          schema:
+            type: string
+        "400":
+          description: retcode：10002 参数错误； retcode：10003 校验错误
+          schema:
+            type: string
+        "401":
+          description: retcode：10001 登录失败
+          schema:
+            type: string
+        "500":
+          description: retcode：20001 服务错误；retcode：20002 接口错误；retcode：20003 无数据错误；retcode：20004
+            数据库异常；retcode：20005 缓存异常
+          schema:
+            type: string
+      summary: 注册用户
+swagger: "2.0"

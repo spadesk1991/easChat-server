@@ -8,11 +8,15 @@ import (
 
 // User 用户
 type User struct {
-	ID       bson.ObjectId `json:"_id" bson:"_id"`
-	UserName string        `json:"user_name" bson:"user_name"`
-	Password string        `json:"password" bson:"password"`
-	CreateAt string        `json:"create_at" bson:"create_at"`
-	UpdateAt string        `json:"update_at" bson:"update_at"`
+	ID       bson.ObjectId `json:"_id" bson:"_id" example:"1111"`
+	UserName string        `json:"user_name" bson:"user_name" example:"张三"`
+	Password string        `json:"password" bson:"password" example:"密码"`
+	CreateAt string        `json:"create_at" bson:"create_at" example:"创建时间"`
+	UpdateAt string        `json:"update_at" bson:"update_at" example:"更新时间"`
+}
+type aaa struct {
+	AA string `json:"aa,omitempty" bson:"aa" example:"aa"`
+	BB string `json:"bb,omitempty" bson:"bb" example:"bb"`
 }
 
 func (user *User) Create() error {
